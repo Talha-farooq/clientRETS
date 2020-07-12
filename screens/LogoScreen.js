@@ -11,7 +11,7 @@ class LogoScreen extends React.Component {
     setTimeout(()=>
 {
     this.props.navigation.navigate("Loading");
-}, 2000);
+}, 3000);
   }
 
 
@@ -19,16 +19,18 @@ class LogoScreen extends React.Component {
   render() {
     return (
     
-        <ImageBackground   style={styles.logo} >
+        <ImageBackground style={styles.logo}>
         <View style={{ flex:1, justifyContent:'center', alignItems:'center'}}>
-        <Image source={require('../assets/img.png')} 
-                 style={{height:300 , width:200}}>
+        <Image source={require('../assets/logo.png')} 
+                 style={{height: 320 , width:220}}>
             </Image>
-            <Text style={styles.text}> RETS</Text>
+            <View style={styles.text}>
+            <Text style={styles.text1}> R E T S</Text>
+            </View>
 
             </View>
-           
-          </ImageBackground>
+           </ImageBackground>
+       
    
     );
   }
@@ -38,13 +40,20 @@ export default LogoScreen;
 const styles = StyleSheet.create({
     logo: { 
         width: '100%',
-        height: '100%',
+        height: '115%',
        
-        backgroundColor:'#21544D',
+        backgroundColor:'white',
     },
-    text: {color: 'white',
-    fontSize: 30, 
+    text: {color: 'black',
+    
+    fontFamily: 'sans-serif-light',
+    
 
+    },
+    text1:{
+        fontSize: 25, 
+        paddingTop:'40%',
+        opacity : 0.5
     }
 
 
