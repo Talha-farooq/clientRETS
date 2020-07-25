@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {List, ListItem, Row} from 'native-base';
 import IconEnt from 'react-native-vector-icons/Entypo';
-export default class RegisterComplains extends Component {
+export default class Pending extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +13,9 @@ export default class RegisterComplains extends Component {
       message: 'no Complains'
     };
   }
+  goBack = () => {
+    this.props.navigation.navigate('Profile');
+  };
   async componentDidMount() {
     try {
       const cid = await AsyncStorage.getItem('cid');
@@ -89,9 +92,9 @@ export default class RegisterComplains extends Component {
       <View >
         <View style={styles.header}>
           <View style={styles.iconWrapper}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.openDrawer()}>
-              <IconEnt name="menu" style={styles.IconEntStyle} size={30} />
+          <TouchableOpacity
+              onPress={() => this.goBack()}>
+              <IconEnt name="chevron-small-left" style={styles.IconEntStyle} size={30} />
             </TouchableOpacity>
           </View>
           <View style={styles.headerTextWrapper}>

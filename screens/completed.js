@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {List, ListItem, Row} from 'native-base';
+import {List, ListItem} from 'native-base';
 import IconEnt from 'react-native-vector-icons/Entypo';
-export default class RegisterComplains extends Component {
+export default class Completed extends Component {
   constructor(props) {
     super(props);
     this.state = {
       cid: '',
       dataSource: [],
       isLoading: false,
-      message: 'no Complains'
     };
   }
+  goBack = () => {
+    this.props.navigation.navigate('Profile');
+  };
   async componentDidMount() {
     try {
       const cid = await AsyncStorage.getItem('cid');
@@ -23,7 +25,7 @@ export default class RegisterComplains extends Component {
     }
   }
   getComplains = () => {
-    fetch('http://rets.codlers.com/api/client/jobview.php', {
+    fetch('http://rets.codlers.com/api/client/jobviewcom.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -48,22 +50,22 @@ export default class RegisterComplains extends Component {
   renderItem = item => (
     <List>
       <ListItem selected>
-        <TouchableOpacity onPress={() => this.getComplainDetail(item)}>
-        <View style={styles.Textstyle1}>
-          <Text style={{fontWeight: "bold" , padding:7 }}>Employee Name: </Text><Text style={{ paddingLeft:7 }}>{item.empname}</Text>
-          {/* <Text style={{fontWeight: "bold" , padding:7 }}>Complain Description: </Text><Text style={{ paddingLeft:7 }}>{item.description}</Text> */}
+        <TouchableOpacity onPress={() => this.getCompletedComplainDetail(item)}>
+          <Text style={{fontWeight: "bold" , padding:7 }}>Employee Name:</Text><Text style={{ paddingLeft:7 }}> {item.empname}</Text>
           <Text style={{fontWeight: "bold" , padding:7 }}> Employee Number: </Text><Text style={{ paddingLeft:10 }}>{item.emp_number}</Text>
-          <Text style={{fontWeight: "bold" , padding:7 }}> Complain Date: </Text><Text style={{ paddingLeft:7 }}>{item.dated}</Text>
-          <Text style={{fontWeight: "bold" , padding:7 }}> Complain Status: </Text><Text style={{fontWeight: "bold",fontSize: 24, textAlign:"center" ,padding:7,color:"white", backgroundColor: "red" }}>{item.status}</Text>
+          <Text style={{fontWeight: "bold" , padding:7 }}>Completed Date: </Text><Text style={{ paddingLeft:7 }}>{item.dated}</Text>
+          <Text style={{fontWeight: "bold" , padding:7 }}>Complain Status:</Text><Text style={{ fontWeight: "bold",fontSize: 24, textAlign:"center" ,padding:7,color:"white",  backgroundColor: "mediumseagreen"}}> {item.status}</Text>
+          {/* <Text style={{fontWeight: "bold" , padding:7 }}>Client address: </Text><Text style={{ paddingLeft:7 }}>{item.address}</Text> */}
+         {/* <Text style={{fontWeight: "bold" , padding:7 }}>Complain Description:</Text><Text style={{ paddingLeft:7 }}> {item.description}</Text> */}
 
 
-          </View>
+
         </TouchableOpacity>
       </ListItem>
     </List> 
   );
-  getComplainDetail = item => {
-    this.props.navigation.navigate('Complain', {
+  getCompletedComplainDetail = item => {
+    this.props.navigation.navigate('CompletedComplainDetail', {
       EName: item.empname,
       CAddress: item.address,
       Description: item.description,
@@ -83,6 +85,8 @@ export default class RegisterComplains extends Component {
     );
   };
 
+ 
+
 
   render() {
     return (
@@ -90,23 +94,15 @@ export default class RegisterComplains extends Component {
         <View style={styles.header}>
           <View style={styles.iconWrapper}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.openDrawer()}>
-              <IconEnt name="menu" style={styles.IconEntStyle} size={30} />
+              onPress={() => this.goBack()}>
+              <IconEnt name="chevron-small-left" style={styles.IconEntStyle} size={30} />
             </TouchableOpacity>
           </View>
           <View style={styles.headerTextWrapper}>
-            <Text style={styles.headerText}>Your Pending Complains</Text>
+          <Text style={styles.headerText}>Completed Jobs</Text>
           </View>
         </View>
-        <View style={{backgroundColor: '#fff'}}>
-            {this.state.dataSource == 0 ? (
-              <View
-                style={{backgroundColor: '#fff'}}
-                opacity={0.4}
-                style={styles.message}>
-                <Text style={{fontSize: 20}}>{this.state.message}</Text>
-              </View>
-            ) : (
+        
         <FlatList
        style={{  }}
           data={this.state.dataSource}
@@ -117,8 +113,6 @@ export default class RegisterComplains extends Component {
           onRefresh={() => this.handleRefresh()}
           refreshing={this.state.isLoading}
         />
-      )}
-      </View>
         </View>
       
     );
@@ -132,24 +126,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   iconWrapper: {
-    marginTop: 25,
+    marginTop: 24,
     marginLeft: 7,
   },
   IconEntStyle: {
     color: '#fff',
   },
   headerTextWrapper: {
-    marginHorizontal: 30,
-    marginTop: 25,
-    marginLeft:34
+    marginHorizontal: 70,
+    marginTop: 20,
+    marginLeft:50
   },
   headerText: {
     color: '#fff',
-    fontSize: 23, 
-  },
-
-  Textstyle1:{
-    
-    // padding:20
+    fontSize: 25,
   },
 });

@@ -706,6 +706,12 @@ import ComplainDetail from './screens/ComplainDetail';
 import CompletedJob from './screens/CompletedJob';
 import CompletedComplainDetail from './screens/CompletedComplainDetail';
 import Mapslocation from './screens/Mapslocation';
+import jobs from './screens/jobs';
+import pending from './screens/pending';
+import completed from './screens/completed';
+
+
+
 
 
 import LogoScreen from './screens/LogoScreen';
@@ -739,6 +745,9 @@ const switchNav = createSwitchNavigator({
   CompletedComplainDetail : {screen: CompletedComplainDetail},
   Feedback: {screen :FeedbackScreen},
   Mapslocation: {screen : Mapslocation},
+  jobs: {screen : jobs},
+  pending: {screen: pending, navigationOptions: {headerShown: false}},
+  completed: {screen: completed, navigationOptions: {headerShown: false}},
 
 
 

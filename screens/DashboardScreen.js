@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { StyleSheet, ScrollView, View, Image} from 'react-native';
+import { StyleSheet, ScrollView, View,Text, Image} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import screens from 'react-native-screens';
 import 'react-native-gesture-handler';
@@ -20,6 +20,8 @@ import ComplainsScreen from './ComplainsScreen';
 import RegisteredComplains from './RegisteredComplains';
 //import FeedbackScreen from './FeedbackScreen';
 import CompletedJob from './CompletedJob';
+
+
 
 
 
@@ -51,11 +53,11 @@ const CustomDrawerComponent = props => (
  
 const DrawerNavigator = createDrawerNavigator(
   {
-    Profile: ProfileScreen,
+    Profile:{screen: ProfileScreen, navigationOptions:{title: "Profile"}},
     Map: MapScreen,
     Complains: ComplainsScreen,
-    RegisteredComplains: RegisteredComplains ,
-    CompletedJob : CompletedJob,
+    RegisteredComplains:{screen:RegisteredComplains,  navigationOptions:{title: "Pending jobs"}},
+    CompletedJob : {screen:CompletedJob,  navigationOptions:{title: "Completed Jobs"   }},
     //Feedback: FeedbackScreen,
     
   },
