@@ -11,7 +11,6 @@ import {
 import DrawerActions from 'react-navigation';
 import IconEnt from 'react-native-vector-icons/Entypo';
 import messaging from '@react-native-firebase/messaging';
-import ImagePicker from 'react-native-image-picker';
 export default class Profile extends Component {
   constructor(props) {
     super(props);
@@ -19,8 +18,11 @@ export default class Profile extends Component {
     this.state = {
       name: '',
       cid: '',
-
-      filePath: {},
+      total:'',
+      completed:'',
+      pending:'',
+     
+     
     };
   }
   async componentDidMount() {
@@ -34,6 +36,7 @@ export default class Profile extends Component {
       console.log(this.state.cid);
       this.getFcmToken();
       this.forGround();
+      this.jobInfo();
 
       //alert(name);
 
@@ -42,6 +45,39 @@ export default class Profile extends Component {
       console.error(error);
     }
   }
+
+  jobInfo = () => {
+    fetch('http://rets.codlers.com/api/client/profiledata.php', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+       id: this.state.cid
+      }),
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+
+        this.setState({
+          total: responseJson['count'],
+        });
+        this.setState({
+          pending: responseJson['pendingCount'],
+        });
+        this.setState({
+          completed: responseJson['completedCount'],
+        });
+      })
+      .finally(() => this.setState({isLoading: false}))
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+
+
 
   async getFcmToken() {
     let fcmToken = await AsyncStorage.getItem('fcm');
@@ -98,42 +134,16 @@ export default class Profile extends Component {
       // Alert.alert('New job', JSON.stringify(remoteMessage.data));
       console.log('Message handled in the background!', remoteMessage);
     });
-
-    /// return unsubscribe;
-  };
-
-  async chooseFile() {
-    var options = {
-      title: 'Select Image',
-      // customButtons: [
-      //   { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-      // ],
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
     };
 
-    ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
 
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-        alert(response.customButton);
-      } else {
-        let source = response;
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-        this.setState({
-          filePath: source,
-        });
-      }
-    });
-  }
+    jobsPage = () => {
+      this.props.navigation.navigate('jobs', {
+        total: this.state.total,
+        pending: this.state.pending,
+        completed: this.state.completed,
+      });
+    };
 
   render() {
     return (
@@ -146,29 +156,44 @@ export default class Profile extends Component {
             onPress={() => this.props.navigation.openDrawer()}
           />
         </View>
-
+        
+        
         <Image
-          style={styles.avatar}
-          source={{uri: 'data:image/jpeg;base64,' + this.state.filePath.data}}
-        />
-
+            style={styles.avatar}
+            source={require('../assets/manager.png')}
+          />
+        
+         
+         
+       
+        
+     
         <View style={styles.body}>
           <View style={styles.bodyContent}>
             <Text style={styles.name}>{this.state.name}</Text>
-            <Text style={styles.info}>
-              Info Testing testing testing testing
-            </Text>
-            <Text style={styles.description}>
-              Hello {this.state.name} we are offering you the best services that
-              we have
-            </Text>
+            
 
-            <TouchableOpacity
-              onPress={this.chooseFile.bind(this)}
-              style={styles.avatar}
-              style={styles.buttonContainer}>
-              <Text> Select Picture </Text>
-            </TouchableOpacity>
+           
+            <TouchableOpacity onPress={this.jobsPage}>
+                  <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                    Complains Detail:
+                  </Text>
+                  <Text style={{fontSize: 20, marginTop: 10}}>
+                    Total Complains: {'\t'}
+                    {this.state.total}
+                  </Text>
+                  <Text style={{fontSize: 20}}>
+                    Pending: {'\t\t\t\t\t\t\t\t'}
+                    {this.state.pending}
+                  </Text>
+                
+                  <Text style={{fontSize: 20}}>
+                    Completed:{'\t\t\t\t\t'}
+                    {this.state.completed}
+                  </Text>
+                </TouchableOpacity>
+
+
 
             <TouchableOpacity
               onPress={this._logOut}
@@ -218,7 +243,7 @@ const styles = StyleSheet.create({
     marginTop: '22%',
   },
   bodyContent: {
-    flex: 1,
+    //flex: 1,
     alignItems: 'center',
     padding: '8%',
   },
@@ -239,7 +264,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   buttonContainer: {
-    marginTop: '5%',
+    marginTop: '75%',
     height: 45,
     flexDirection: 'row',
     justifyContent: 'center',

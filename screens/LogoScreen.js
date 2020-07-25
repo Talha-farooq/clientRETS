@@ -25,7 +25,7 @@ class LogoScreen extends React.Component {
                  style={{height: 320 , width:220}}>
             </Image>
             <View style={styles.text}>
-            <Text style={styles.text1}> R E T S</Text>
+            <Text style={styles.text1}> C L I E N T</Text>
             </View>
 
             </View>

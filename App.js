@@ -11,7 +11,14 @@ import ComplainDetail from './screens/ComplainDetail';
 import CompletedJob from './screens/CompletedJob';
 import CompletedComplainDetail from './screens/CompletedComplainDetail';
 import Mapslocation from './screens/Mapslocation';
-import LoadingScreenMiddle from './screens/loadingScreenmiddle';
+import jobs from './screens/jobs';
+import pending from './screens/pending';
+import completed from './screens/completed';
+
+
+
+
+
 import LogoScreen from './screens/LogoScreen';
 
 class App extends React.Component {
@@ -37,11 +44,17 @@ const switchNav = createSwitchNavigator({
   },
   Loading: {screen: LoadingScreen},
 
-  Complain: {screen: ComplainDetail, navigationOptions: {headerShown: false}},
-  // CompletedJob : {screen: CompletedJob},
-  CompletedComplainDetail: {screen: CompletedComplainDetail},
-  Feedback: {screen: FeedbackScreen},
-  Mapslocation: {screen: Mapslocation},
+ 
+  Complain: { screen: ComplainDetail,  navigationOptions: { headerShown: false,  } },
+ // CompletedJob : {screen: CompletedJob},
+  CompletedComplainDetail : {screen: CompletedComplainDetail},
+  Feedback: {screen :FeedbackScreen},
+  Mapslocation: {screen : Mapslocation},
+  jobs: {screen : jobs},
+  pending: {screen: pending, navigationOptions: {headerShown: false}},
+  completed: {screen: completed, navigationOptions: {headerShown: false}},
+
+
 
   stack: AppNavigator,
   Dashboard: {

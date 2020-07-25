@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {List, ListItem} from 'native-base';
 import IconEnt from 'react-native-vector-icons/Entypo';
-export default class App extends Component {
+export default class completedJob extends Component {
   constructor(props) {
     super(props);
     this.state = {
