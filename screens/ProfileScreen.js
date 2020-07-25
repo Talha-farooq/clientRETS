@@ -1,23 +1,26 @@
-
 import AsyncStorage from '@react-native-community/async-storage';
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity,Button} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Button,
+} from 'react-native';
 import DrawerActions from 'react-navigation';
 import IconEnt from 'react-native-vector-icons/Entypo';
 import messaging from '@react-native-firebase/messaging';
 import ImagePicker from 'react-native-image-picker';
 export default class Profile extends Component {
-
-
   constructor(props) {
     super(props);
     //this._loadData();
     this.state = {
       name: '',
       cid: '',
-      
-        filePath: {},
-      
+
+      filePath: {},
     };
   }
   async componentDidMount() {
@@ -27,14 +30,13 @@ export default class Profile extends Component {
 
       this.setState({cid: cid});
       this.setState({name: name});
-     
+
       console.log(this.state.cid);
       this.getFcmToken();
       this.forGround();
-      
+
       //alert(name);
-     
-      
+
       //alert(this.state.name);
     } catch (e) {
       console.error(error);
@@ -76,26 +78,21 @@ export default class Profile extends Component {
     messaging().onMessage(async remoteMessage => {
       //if(remoteMessage.data.hasOwnProperty('type')){
 
-     
-
-     if (remoteMessage.data.rets == 'job') {
+      if (remoteMessage.data.rets == 'job') {
         //alert(remoteMessage.data.rets);
-        this.props.navigation.navigate('Maplocation', {
+        this.props.navigation.navigate('loader', {
           job_id: remoteMessage.data.job_id,
           lat_cli: remoteMessage.data.lat_cli,
           lng_cli: remoteMessage.data.lng_cli,
           lat_emp: remoteMessage.data.lat_emp,
           lng_emp: remoteMessage.data.lng_emp,
         });
-      }
-
-     else  if (remoteMessage.data.rets == 'feedback') {
+      } else if (remoteMessage.data.rets == 'feedback') {
         //alert(remoteMessage.data.rets);
         this.props.navigation.navigate('Feedback', {
           job_id: remoteMessage.data.job_id,
         });
       }
-
 
       // }
       // Alert.alert('New job', JSON.stringify(remoteMessage.data));
@@ -105,24 +102,18 @@ export default class Profile extends Component {
     /// return unsubscribe;
   };
 
-
-
-
-
-
-
- async chooseFile()  {
+  async chooseFile() {
     var options = {
       title: 'Select Image',
       // customButtons: [
       //   { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
       // ],
       storageOptions: {
-         skipBackup: true,
+        skipBackup: true,
         path: 'images',
       },
     };
-    
+
     ImagePicker.showImagePicker(options, response => {
       console.log('Response = ', response);
 
@@ -142,15 +133,11 @@ export default class Profile extends Component {
         });
       }
     });
-  };
-
-
-
-
+  }
 
   render() {
     return (
-      <View >
+      <View>
         <View style={styles.header}>
           <IconEnt
             name="menu"
@@ -159,16 +146,12 @@ export default class Profile extends Component {
             onPress={() => this.props.navigation.openDrawer()}
           />
         </View>
-        
-        
-        
-        
-         <Image  style={styles.avatar} source={{ uri: 'data:image/jpeg;base64,' + this.state.filePath.data, }}/>
-         
-         
-       
-        
-     
+
+        <Image
+          style={styles.avatar}
+          source={{uri: 'data:image/jpeg;base64,' + this.state.filePath.data}}
+        />
+
         <View style={styles.body}>
           <View style={styles.bodyContent}>
             <Text style={styles.name}>{this.state.name}</Text>
@@ -176,21 +159,20 @@ export default class Profile extends Component {
               Info Testing testing testing testing
             </Text>
             <Text style={styles.description}>
-              Hello {this.state.name} we are offering you the best services that we have 
+              Hello {this.state.name} we are offering you the best services that
+              we have
             </Text>
 
-           
-            
-            <TouchableOpacity onPress={this.chooseFile.bind(this)} style={styles.avatar} style={styles.buttonContainer}>
-            <Text > Select Picture </Text>
-            </TouchableOpacity>
-           
             <TouchableOpacity
-            
-              onPress={this._logOut}
-              
+              onPress={this.chooseFile.bind(this)}
+              style={styles.avatar}
               style={styles.buttonContainer}>
-              
+              <Text> Select Picture </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={this._logOut}
+              style={styles.buttonContainer}>
               <Text>Logout</Text>
             </TouchableOpacity>
           </View>
@@ -199,13 +181,10 @@ export default class Profile extends Component {
     );
   }
   _logOut = async () => {
-    
     await AsyncStorage.clear();
     await AsyncStorage.removeItem('fcm');
     this.props.navigation.navigate('stack');
-    
   };
-
 }
 
 const styles = StyleSheet.create({
@@ -229,7 +208,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     position: 'absolute',
     marginTop: 100,
-    
   },
   name: {
     fontSize: 22,
@@ -271,6 +249,4 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: '#439889',
   },
-  
-   
 });
