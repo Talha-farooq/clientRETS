@@ -18,11 +18,9 @@ export default class Profile extends Component {
     this.state = {
       name: '',
       cid: '',
-      total:'',
-      completed:'',
-      pending:'',
-     
-     
+      total: '',
+      completed: '',
+      pending: '',
     };
   }
   async componentDidMount() {
@@ -47,19 +45,18 @@ export default class Profile extends Component {
   }
 
   jobInfo = () => {
-    fetch('http://rets.codlers.com/api/client/profiledata.php', {
+    fetch('https://jhnerd.com/rets/api/client/profiledata.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-       id: this.state.cid
+        id: this.state.cid,
       }),
     })
       .then(response => response.json())
       .then(responseJson => {
-
         this.setState({
           total: responseJson['count'],
         });
@@ -76,12 +73,9 @@ export default class Profile extends Component {
       });
   };
 
-
-
-
   async getFcmToken() {
     let fcmToken = await AsyncStorage.getItem('fcm');
-    fetch('http://rets.codlers.com/api/client/fcmtoken.php', {
+    fetch('https://jhnerd.com/rets/api/client/fcmtoken.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -134,16 +128,15 @@ export default class Profile extends Component {
       // Alert.alert('New job', JSON.stringify(remoteMessage.data));
       console.log('Message handled in the background!', remoteMessage);
     });
-    };
+  };
 
-
-    jobsPage = () => {
-      this.props.navigation.navigate('jobs', {
-        total: this.state.total,
-        pending: this.state.pending,
-        completed: this.state.completed,
-      });
-    };
+  jobsPage = () => {
+    this.props.navigation.navigate('jobs', {
+      total: this.state.total,
+      pending: this.state.pending,
+      completed: this.state.completed,
+    });
+  };
 
   render() {
     return (
@@ -156,44 +149,34 @@ export default class Profile extends Component {
             onPress={() => this.props.navigation.openDrawer()}
           />
         </View>
-        
-        
+
         <Image
-            style={styles.avatar}
-            source={require('../assets/manager.png')}
-          />
-        
-         
-         
-       
-        
-     
+          style={styles.avatar}
+          source={require('../assets/manager.png')}
+        />
+
         <View style={styles.body}>
           <View style={styles.bodyContent}>
             <Text style={styles.name}>{this.state.name}</Text>
-            
 
-           
             <TouchableOpacity onPress={this.jobsPage}>
-                  <Text style={{fontWeight: 'bold', fontSize: 20}}>
-                    Complains Detail:
-                  </Text>
-                  <Text style={{fontSize: 20, marginTop: 10}}>
-                    Total Complains: {'\t'}
-                    {this.state.total}
-                  </Text>
-                  <Text style={{fontSize: 20}}>
-                    Pending: {'\t\t\t\t\t\t\t\t'}
-                    {this.state.pending}
-                  </Text>
-                
-                  <Text style={{fontSize: 20}}>
-                    Completed:{'\t\t\t\t\t'}
-                    {this.state.completed}
-                  </Text>
-                </TouchableOpacity>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                Complains Detail:
+              </Text>
+              <Text style={{fontSize: 20, marginTop: 10}}>
+                Total Complains: {'\t'}
+                {this.state.total}
+              </Text>
+              <Text style={{fontSize: 20}}>
+                Pending: {'\t'}
+                {this.state.pending}
+              </Text>
 
-
+              <Text style={{fontSize: 20}}>
+                Completed:{'\t'}
+                {this.state.completed}
+              </Text>
+            </TouchableOpacity>
 
             <TouchableOpacity
               onPress={this._logOut}

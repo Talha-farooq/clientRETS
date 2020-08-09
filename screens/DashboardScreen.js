@@ -7,11 +7,7 @@
  */
 
 import React from 'react';
-<<<<<<< HEAD
-import {StyleSheet, ScrollView, View, Image} from 'react-native';
-=======
 import { StyleSheet, ScrollView, View,Text, Image} from 'react-native';
->>>>>>> 45c8ce40afeaecfd699b1c93af2eae058d2ad917
 import SafeAreaView from 'react-native-safe-area-view';
 import screens from 'react-native-screens';
 import 'react-native-gesture-handler';
@@ -57,14 +53,8 @@ const DrawerNavigator = createDrawerNavigator(
     Profile:{screen: ProfileScreen, navigationOptions:{title: "Profile"}},
     Map: MapScreen,
     Complains: ComplainsScreen,
-<<<<<<< HEAD
-    RegisteredComplains: RegisteredComplains,
-    CompletedJob: CompletedJob,
-    loading: IsLoadingCoords,
-=======
     RegisteredComplains:{screen:RegisteredComplains,  navigationOptions:{title: "Pending jobs"}},
     CompletedJob : {screen:CompletedJob,  navigationOptions:{title: "Completed Jobs"   }},
->>>>>>> 45c8ce40afeaecfd699b1c93af2eae058d2ad917
     //Feedback: FeedbackScreen,
   },
   {

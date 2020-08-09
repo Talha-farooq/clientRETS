@@ -15,7 +15,7 @@ class loadingScreenmiddle extends Component {
   };
   getEmpToken = (job_id, lat_cli, lng_cli) => {
     console.log(job_id);
-    fetch('http://rets.codlers.com/api/client/getEmpCoords.php', {
+    fetch('https://jhnerd.com/rets/api/client/getEmpCoords.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

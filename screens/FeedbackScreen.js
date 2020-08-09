@@ -1,17 +1,23 @@
 import React from 'react';
-import { StyleSheet, Modal, View, Text, ToastAndroid,TouchableOpacity, Image } from 'react-native';
-import PropTypes from "prop-types";
+import {
+  StyleSheet,
+  Modal,
+  View,
+  Text,
+  ToastAndroid,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import PropTypes from 'prop-types';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
 
-
 export default class FeedbackScreen extends React.Component {
-
-  onNegativeButtonPress = (feedback , job_id) => {
+  onNegativeButtonPress = (feedback, job_id) => {
     let number = feedback;
-    
+
     console.log(number + job_id);
 
-    fetch('http://rets.codlers.com/api/client/feedback.php', {
+    fetch('https://jhnerd.com/rets/api/client/feedback.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -24,8 +30,7 @@ export default class FeedbackScreen extends React.Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        
-         if (responseJson['message'] != undefined) {
+        if (responseJson['message'] != undefined) {
           ToastAndroid.show(responseJson.message, ToastAndroid.SHORT);
           ToastAndroid.showWithGravity(
             responseJson.message,
@@ -40,21 +45,15 @@ export default class FeedbackScreen extends React.Component {
       });
   };
 
-  
-
-
-
-
-
   render() {
     const {navigation} = this.props;
-    const  job_id= navigation.getParam('job_id');
+    const job_id = navigation.getParam('job_id');
     console.log('job_id' + job_id);
     return (
       <Modal
         visible={this.props.displayAlert}
         transparent={true}
-        animationType={"fade"}>
+        animationType={'fade'}>
         <View style={styles.mainOuterComponent}>
           <View style={styles.mainContainer}>
             {/* First ROw - Alert Icon and Title */}
@@ -62,15 +61,13 @@ export default class FeedbackScreen extends React.Component {
               {/*{  
                 // this.props.displayAlertIcon
                 // &&*/}
-                <Image
-                  source={require('../assets/img.png')}
-                  resizeMode={'contain'}
-                  style={styles.alertIconStyle}
-                />
+              <Image
+                source={require('../assets/img.png')}
+                resizeMode={'contain'}
+                style={styles.alertIconStyle}
+              />
               {/*}*/}
-              <Text style={styles.alertTitleTextStyle}>
-               Give Feedback 
-              </Text>
+              <Text style={styles.alertTitleTextStyle}>Give Feedback</Text>
             </View>
             {/* Second Row - Alert Message Text */}
             <View style={styles.middlePart}>
@@ -80,43 +77,46 @@ export default class FeedbackScreen extends React.Component {
             </View>
             {/* Third Row - Positive and Negative Button */}
             <View style={styles.bottomPart}>
-
-
-            <TouchableOpacity onPress={() => this.onNegativeButtonPress(5, job_id)}>
-            <IconMat
-            name="sentiment-very-satisfied"
-            style={styles.IconEntStyle}
-            size={35}
-          />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.onNegativeButtonPress(4 , job_id)}>
-           <IconMat
-            name="sentiment-satisfied"
-            style={styles.IconEntStyle}
-            size={35}
-          />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.onNegativeButtonPress(3 , job_id)}>
-           <IconMat
-            name="sentiment-neutral"
-            style={styles.IconEntStyle}
-            size={35}
-          />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.onNegativeButtonPress(2, job_id)}>
-           <IconMat
-            name="sentiment-dissatisfied"
-            style={styles.IconEntStyle}
-            size={35}
-          />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.onNegativeButtonPress(1,job_id)}>
-          <IconMat
-            name="sentiment-very-dissatisfied"
-            style={styles.IconEntStyle}
-            size={35}
-          />
-          </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.onNegativeButtonPress(5, job_id)}>
+                <IconMat
+                  name="sentiment-very-satisfied"
+                  style={styles.IconEntStyle}
+                  size={35}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.onNegativeButtonPress(4, job_id)}>
+                <IconMat
+                  name="sentiment-satisfied"
+                  style={styles.IconEntStyle}
+                  size={35}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.onNegativeButtonPress(3, job_id)}>
+                <IconMat
+                  name="sentiment-neutral"
+                  style={styles.IconEntStyle}
+                  size={35}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.onNegativeButtonPress(2, job_id)}>
+                <IconMat
+                  name="sentiment-dissatisfied"
+                  style={styles.IconEntStyle}
+                  size={35}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.onNegativeButtonPress(1, job_id)}>
+                <IconMat
+                  name="sentiment-very-dissatisfied"
+                  style={styles.IconEntStyle}
+                  size={35}
+                />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   mainContainer: {
     flexDirection: 'column',
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 2,
-    paddingVertical: 4
+    paddingVertical: 4,
   },
   middlePart: {
     flex: 1,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     padding: 4,
     color: '#FFFFFF',
     fontSize: 16,
-    marginVertical: 2
+    marginVertical: 2,
   },
   bottomPart: {
     flex: 0.5,
@@ -164,8 +164,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 4,
     justifyContent: 'space-evenly',
-
-
   },
   IconEntStyle: {
     color: 'black',
@@ -177,11 +175,11 @@ const styles = StyleSheet.create({
   alertTitleTextStyle: {
     flex: 1,
     textAlign: 'justify',
-    color: "black",
+    color: 'black',
     fontSize: 18,
     fontWeight: 'bold',
     padding: 2,
-    marginHorizontal: 2
+    marginHorizontal: 2,
   },
   alertMessageTextStyle: {
     color: 'black',
@@ -202,7 +200,6 @@ const styles = StyleSheet.create({
   alertMessageButtonTextStyle: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
-
 });

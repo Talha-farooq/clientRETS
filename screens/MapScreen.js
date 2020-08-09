@@ -199,7 +199,7 @@ class MapScreen extends Component {
     // this.getEmpCords();
   }
   getEmpCords = token => {
-    fetch('http://rets.codlers.com/api/employee/getCoords.php', {
+    fetch('https://jhnerd.com/rets/api/employee/getCoords.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

@@ -41,7 +41,7 @@ export default class jobs extends Component  {
             <Text style={styles.headerText}>Jobs</Text>
           </View>
         </View>
-        <View style={{}}>
+        <View style={{justifyContent:"space-around"}}>
           <View
             style={{
               //flex: 1,
@@ -60,6 +60,7 @@ export default class jobs extends Component  {
                 height: '18%',
                 justifyContent: 'center',
                 marginTop: 2,
+                height:50
               }}>
               <Text
                 style={{
@@ -67,6 +68,7 @@ export default class jobs extends Component  {
                   alignSelf: 'center',
                   justifyContent: 'center',
                   fontSize: 25,
+                  
                 }}>
                 See Detail
               </Text>
@@ -90,7 +92,7 @@ export default class jobs extends Component  {
                 height: '18%',
                 justifyContent: 'center',
                 marginTop: '5%',
-                
+                height:50
               }}>
               <Text
                 style={{
@@ -122,6 +124,7 @@ export default class jobs extends Component  {
                 height: '18%',
                 justifyContent: 'center',
                 marginTop: 2,
+                height:50
               }}>
               <Text
                 style={{

@@ -15,11 +15,10 @@ import jobs from './screens/jobs';
 import pending from './screens/pending';
 import completed from './screens/completed';
 
-
-
-
+import LoadingScreenMiddle from './screens/loadingScreenmiddle';
 
 import LogoScreen from './screens/LogoScreen';
+console.disableYellowBox = true;
 
 class App extends React.Component {
   constructor(props) {
@@ -44,17 +43,14 @@ const switchNav = createSwitchNavigator({
   },
   Loading: {screen: LoadingScreen},
 
- 
-  Complain: { screen: ComplainDetail,  navigationOptions: { headerShown: false,  } },
- // CompletedJob : {screen: CompletedJob},
-  CompletedComplainDetail : {screen: CompletedComplainDetail},
-  Feedback: {screen :FeedbackScreen},
-  Mapslocation: {screen : Mapslocation},
-  jobs: {screen : jobs},
+  Complain: {screen: ComplainDetail, navigationOptions: {headerShown: false}},
+  // CompletedJob : {screen: CompletedJob},
+  CompletedComplainDetail: {screen: CompletedComplainDetail},
+  Feedback: {screen: FeedbackScreen},
+  Mapslocation: {screen: Mapslocation},
+  jobs: {screen: jobs},
   pending: {screen: pending, navigationOptions: {headerShown: false}},
   completed: {screen: completed, navigationOptions: {headerShown: false}},
-
-
 
   stack: AppNavigator,
   Dashboard: {

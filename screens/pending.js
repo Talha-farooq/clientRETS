@@ -10,7 +10,7 @@ export default class Pending extends Component {
       cid: '',
       dataSource: [],
       isLoading: false,
-      message: 'no Complains'
+      message: 'no Complains',
     };
   }
   goBack = () => {
@@ -26,7 +26,7 @@ export default class Pending extends Component {
     }
   }
   getComplains = () => {
-    fetch('http://rets.codlers.com/api/client/jobview.php', {
+    fetch('https://jhnerd.com/rets/api/client/jobview.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -52,18 +52,41 @@ export default class Pending extends Component {
     <List>
       <ListItem selected>
         <TouchableOpacity onPress={() => this.getComplainDetail(item)}>
-        <View style={styles.Textstyle1}>
-          <Text style={{fontWeight: "bold" , padding:7 }}>Employee Name: </Text><Text style={{ paddingLeft:7 }}>{item.empname}</Text>
-          {/* <Text style={{fontWeight: "bold" , padding:7 }}>Complain Description: </Text><Text style={{ paddingLeft:7 }}>{item.description}</Text> */}
-          <Text style={{fontWeight: "bold" , padding:7 }}> Employee Number: </Text><Text style={{ paddingLeft:10 }}>{item.emp_number}</Text>
-          <Text style={{fontWeight: "bold" , padding:7 }}> Complain Date: </Text><Text style={{ paddingLeft:7 }}>{item.dated}</Text>
-          <Text style={{fontWeight: "bold" , padding:7 }}> Complain Status: </Text><Text style={{fontWeight: "bold",fontSize: 24, textAlign:"center" ,padding:7,color:"white", backgroundColor: "red" }}>{item.status}</Text>
-
-
+          <View style={styles.Textstyle1}>
+            <Text style={{fontWeight: 'bold', padding: 7}}>
+              Employee Name:{' '}
+            </Text>
+            <Text style={{paddingLeft: 7}}>{item.empname}</Text>
+            {/* <Text style={{fontWeight: "bold" , padding:7 }}>Complain Description: </Text><Text style={{ paddingLeft:7 }}>{item.description}</Text> */}
+            <Text style={{fontWeight: 'bold', padding: 7}}>
+              {' '}
+              Employee Number:{' '}
+            </Text>
+            <Text style={{paddingLeft: 10}}>{item.emp_number}</Text>
+            <Text style={{fontWeight: 'bold', padding: 7}}>
+              {' '}
+              Complain Date:{' '}
+            </Text>
+            <Text style={{paddingLeft: 7}}>{item.dated}</Text>
+            <Text style={{fontWeight: 'bold', padding: 7}}>
+              {' '}
+              Complain Status:{' '}
+            </Text>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 24,
+                textAlign: 'center',
+                padding: 7,
+                color: 'white',
+                backgroundColor: 'red',
+              }}>
+              {item.status}
+            </Text>
           </View>
         </TouchableOpacity>
       </ListItem>
-    </List> 
+    </List>
   );
   getComplainDetail = item => {
     this.props.navigation.navigate('Complain', {
@@ -72,10 +95,9 @@ export default class Pending extends Component {
       Description: item.description,
       ENumber: item.emp_number,
       Date: item.dated,
-      status: item.status
+      status: item.status,
     });
   };
-
 
   handleRefresh = () => {
     this.setState(
@@ -86,15 +108,17 @@ export default class Pending extends Component {
     );
   };
 
-
   render() {
     return (
-      <View >
+      <View>
         <View style={styles.header}>
           <View style={styles.iconWrapper}>
-          <TouchableOpacity
-              onPress={() => this.goBack()}>
-              <IconEnt name="chevron-small-left" style={styles.IconEntStyle} size={30} />
+            <TouchableOpacity onPress={() => this.goBack()}>
+              <IconEnt
+                name="chevron-small-left"
+                style={styles.IconEntStyle}
+                size={30}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.headerTextWrapper}>
@@ -102,28 +126,26 @@ export default class Pending extends Component {
           </View>
         </View>
         <View style={{backgroundColor: '#fff'}}>
-            {this.state.dataSource == 0 ? (
-              <View
-                style={{backgroundColor: '#fff'}}
-                opacity={0.4}
-                style={styles.message}>
-                <Text style={{fontSize: 20}}>{this.state.message}</Text>
-              </View>
-            ) : (
-        <FlatList
-       style={{  }}
-          data={this.state.dataSource}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={item => item.jid}
-          renderItem={({item}) => this.renderItem(item)}
-
-          onRefresh={() => this.handleRefresh()}
-          refreshing={this.state.isLoading}
-        />
-      )}
-      </View>
+          {this.state.dataSource == 0 ? (
+            <View
+              style={{backgroundColor: '#fff'}}
+              opacity={0.4}
+              style={styles.message}>
+              <Text style={{fontSize: 20}}>{this.state.message}</Text>
+            </View>
+          ) : (
+            <FlatList
+              style={{}}
+              data={this.state.dataSource}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={item => item.jid}
+              renderItem={({item}) => this.renderItem(item)}
+              onRefresh={() => this.handleRefresh()}
+              refreshing={this.state.isLoading}
+            />
+          )}
         </View>
-      
+      </View>
     );
   }
 }
@@ -144,15 +166,14 @@ const styles = StyleSheet.create({
   headerTextWrapper: {
     marginHorizontal: 30,
     marginTop: 25,
-    marginLeft:34
+    marginLeft: 34,
   },
   headerText: {
     color: '#fff',
-    fontSize: 23, 
+    fontSize: 23,
   },
 
-  Textstyle1:{
-    
+  Textstyle1: {
     // padding:20
   },
 });

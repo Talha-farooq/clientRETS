@@ -14,7 +14,6 @@ import {PermissionsAndroid} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import IconEnt from 'react-native-vector-icons/Entypo';
 
-
 class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -22,14 +21,13 @@ class LoginScreen extends React.Component {
       pass: '',
       email: '',
     };
-     //sssss this.props.navigation.goBack(false);
-
+    //sssss this.props.navigation.goBack(false);
   }
-  
+
   static navigationOptions = {
     title: '              Welcome Login',
     headerStyle: {backgroundColor: '#02584d'},
-    headerTitleStyle: {color: '#fff',textAlign: 'center',alignSelf:'center'},
+    headerTitleStyle: {color: '#fff', textAlign: 'center', alignSelf: 'center'},
   };
 
   async componentDidMount() {
@@ -53,9 +51,9 @@ class LoginScreen extends React.Component {
       console.warn(err);
     }
   }
-  
+
   login = () => {
-    fetch('http://rets.codlers.com/api/client/logincli.php', {
+    fetch('https://jhnerd.com/rets/api/client/logincli.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -74,7 +72,7 @@ class LoginScreen extends React.Component {
         } else if (responseJson['message'] != undefined) {
           let res = responseJson;
           this.storeData(res);
-          
+
           this.props.navigation.navigate('Dashboard');
           ToastAndroid.show(responseJson.message, ToastAndroid.SHORT);
           ToastAndroid.showWithGravity(
@@ -95,7 +93,6 @@ class LoginScreen extends React.Component {
       await AsyncStorage.setItem('name', res.client.name);
     } catch (e) {
       console.error(error);
-      
     }
   };
   render() {
@@ -112,55 +109,45 @@ class LoginScreen extends React.Component {
             source={require('../assets/img.png')}
           />
         </View>
-        
+
         <View>
           <View>
-          <View style={styles.IconEntStyle1}>
-              < IconEnt
-                name="user"
-                style={styles.IconEntStyle}
-                size={21}
-                
-              />
-              </View>
-          <TextInput
-            style={styles.inputBox}
-            underlineColorAndroid="black"
-            placeholder="Email"
-            placeholderTextColor="black"
-            selectionColor="#fff"
-            
-             
-            keyboardType="email-address"
-            onChangeText={email => this.setState({email})}
-            onSubmitEditing={() => this.password.focus()}
-          />
-          <View style={styles.IconEntStyle1}>
-              < IconEnt
-                name="lock"
-                style={styles.IconEntStyle}
-                size={21}
-                
-              />
-              </View>
-          <TextInput
-            style={styles.inputBox}
-            underlineColorAndroid="black"
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor="black"
-            onChangeText={pass => this.setState({pass})}
-            ref={input => (this.password = input)}
-          />
+            <View style={styles.IconEntStyle1}>
+              <IconEnt name="user" style={styles.IconEntStyle} size={21} />
+            </View>
+            <TextInput
+              style={styles.inputBox}
+              underlineColorAndroid="black"
+              placeholder="Email"
+              placeholderTextColor="black"
+              selectionColor="#fff"
+              keyboardType="email-address"
+              onChangeText={email => this.setState({email})}
+              onSubmitEditing={() => this.password.focus()}
+            />
+            <View style={styles.IconEntStyle1}>
+              <IconEnt name="lock" style={styles.IconEntStyle} size={21} />
+            </View>
+            <TextInput
+              style={styles.inputBox}
+              underlineColorAndroid="black"
+              placeholder="Password"
+              secureTextEntry={true}
+              placeholderTextColor="black"
+              onChangeText={pass => this.setState({pass})}
+              ref={input => (this.password = input)}
+            />
           </View>
           <TouchableOpacity onPress={this.login} style={styles.button}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
           <View>
-         <Text>Get another account?</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Signup')} style={styles.button1}>
-            <Text style={styles.buttonText1}>Sign Up</Text>
-          </TouchableOpacity>
+            <Text>Get another account?</Text>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Signup')}
+              style={styles.button1}>
+              <Text style={styles.buttonText1}>Sign Up</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -175,7 +162,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   inputBox: {
-   width: '100%',
+    width: '100%',
     //backgroundColor: '#fff',
     borderRadius: 0,
     paddingHorizontal: '14%',
@@ -198,28 +185,26 @@ const styles = StyleSheet.create({
   },
   button1: {
     width: 300,
-     borderRadius: 25,
-     marginVertical: '5%',
-     paddingVertical: '4%',
-     backgroundColor: '#439889',
-    
-
-   },
-   buttonText1:{
+    borderRadius: 25,
+    marginVertical: '5%',
+    paddingVertical: '4%',
+    backgroundColor: '#439889',
+  },
+  buttonText1: {
     fontSize: 16,
     fontWeight: '500',
-    color: 'white',    textAlign: 'center',
+    color: 'white',
+    textAlign: 'center',
   },
-  IconEntStyle:{
+  IconEntStyle: {
     marginBottom: '-100%',
     color: '#439889',
     marginHorizontal: '3%',
-    marginVertical: '3%'
+    marginVertical: '3%',
   },
   IconEntStyle1: {
-    marginBottom: '-7%'
+    marginBottom: '-7%',
   },
-  
 });
 
 export default LoginScreen;
